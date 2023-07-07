@@ -779,7 +779,7 @@ public class InAppBrowser extends CordovaPlugin {
             public void run() {
 
                 // CB-6702 InAppBrowser hangs when opening more than one instance
-                if (dialog != null) {
+                if (dialog != null && !cordova.getActivity().isFinishing()) {
                     dialog.dismiss();
                 };
 
@@ -1033,14 +1033,14 @@ public class InAppBrowser extends CordovaPlugin {
                 lp.width = WindowManager.LayoutParams.MATCH_PARENT;
                 lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 
-                if (dialog != null) {
+                if (dialog != null && !cordova.getActivity().isFinishing()) {
                     dialog.setContentView(main);
                     dialog.show();
                     dialog.getWindow().setAttributes(lp);
                 }
                 // the goal of openhidden is to load the url and not display it
                 // Show() needs to be called to cause the URL to be loaded
-                if (openWindowHidden && dialog != null) {
+                if (openWindowHidden && dialog != null && !cordova.getActivity().isFinishing()) {
                     dialog.hide();
                 }
             }
